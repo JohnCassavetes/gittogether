@@ -222,23 +222,11 @@ export function GameScreen() {
       <HUD score={score} lives={lives} timeLeft={timeLeft} />
       
       {gameState === 'start' && (
-        <div style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          background: 'rgba(0,0,0,0.7)',
-          backdropFilter: 'blur(10px)',
-          color: 'white',
-          padding: '3rem',
-          borderRadius: '24px',
-          textAlign: 'center',
-          zIndex: 20
-        }}>
-          <h1>Better Fruit Ninja</h1>
-          <p style={{ fontSize: '20px', marginBottom: '2rem' }}>
-            Hold your hand up to the camera until your cyan trail appears.
-            <br />Enter your initials to begin!
+        <div className="retro-overlay retro-font">
+          <h1 className="retro-title">FRUIT NINJA</h1>
+          <p className="retro-text">
+            HOLD HAND TO CAMERA<br/><br/>
+            ENTER DRIVER IDENT
           </p>
 
           <div style={{ marginBottom: '1rem' }}>
@@ -247,34 +235,22 @@ export function GameScreen() {
               maxLength={3} 
               value={initials} 
               onChange={(e) => setInitials(e.target.value.toUpperCase())}
-              placeholder="AAA"
-              style={{ fontSize: '24px', width: '80px', textAlign: 'center', textTransform: 'uppercase', padding: '0.5rem', borderRadius: '8px', border: '2px solid white', background: 'rgba(255,255,255,0.2)', color: 'white' }}
+              className="retro-input retro-font"
             />
           </div>
 
           <button 
             disabled={!initials}
             onClick={() => setGameState('playing')}
-            style={{ 
-              padding: '1rem 3rem', 
-              fontSize: '24px', 
-              cursor: initials ? 'pointer' : 'not-allowed',
-              background: initials ? '#ff5252' : '#555',
-              border: 'none',
-              borderRadius: '12px',
-              color: 'white',
-              fontWeight: 'bold',
-              boxShadow: initials ? '0 4px 15px rgba(255, 82, 82, 0.4)' : 'none',
-              marginBottom: '1rem'
-            }}
+            className="retro-button retro-font"
           >
             Start Game
           </button>
 
-          <div style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '8px' }}>
-            <h2>🏆 LEADERBOARD</h2>
+          <div className="retro-leaderboard retro-font">
+            <h2>🏆 HIGH SCORES</h2>
             {leaderboard.map((entry, idx) => (
-              <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', width: '200px', margin: '0 auto', fontSize: '20px' }}>
+              <div key={idx} className="retro-leaderboard-entry">
                 <span>{entry.name}</span>
                 <span>{entry.score}</span>
               </div>
@@ -284,36 +260,16 @@ export function GameScreen() {
       )}
 
       {gameState === 'gameover' && (
-        <div style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          background: 'rgba(0,0,0,0.8)',
-          color: 'white',
-          padding: '2rem 4rem',
-          borderRadius: '16px',
-          textAlign: 'center',
-          zIndex: 20
-        }}>
-          <h1>GAME OVER</h1>
-          <p style={{ fontSize: '24px', marginBottom: '1rem' }}>Final Score: {score}</p>
-          <p style={{ color: 'yellow', fontSize: '18px' }}>Score automatically saved for {initials || 'Anon'}!</p>
+        <div className="retro-overlay retro-font">
+          <h1 className="retro-gameover-title">GAME OVER</h1>
+          <p className="retro-text" style={{ fontSize: '24px' }}>SCORE: {score}</p>
+          <p className="retro-text" style={{ color: 'yellow' }}>Score automatically saved for {initials || 'Anon'}!</p>
           
           <button 
             onClick={resetGame}
-            style={{ 
-              padding: '1rem 2rem', 
-              fontSize: '20px', 
-              cursor: 'pointer',
-              background: '#4CAF50',
-              border: 'none',
-              borderRadius: '8px',
-              color: 'white',
-              marginTop: '1rem'
-            }}
+            className="retro-button retro-font"
           >
-            Play Again
+            INSERT COIN 
           </button>
         </div>
       )}

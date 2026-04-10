@@ -2,14 +2,13 @@ import React from 'react';
 
 export function HUD({ score, lives, timeLeft }) {
   return (
-    <div style={{
+    <div className="retro-font" style={{
       position: 'absolute',
       top: '20px',
       left: '20px',
-      color: 'white',
-      fontFamily: 'sans-serif',
+      color: '#fff',
       fontSize: '24px',
-      textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
+      textShadow: '4px 4px 0px rgba(0,0,0,1)',
       pointerEvents: 'none',
       zIndex: 10
     }}>

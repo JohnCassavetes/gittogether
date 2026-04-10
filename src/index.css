@@ -28,3 +28,114 @@ html, body {
 .shake-active {
   animation: screenShake 0.4s cubic-bezier(.36,.07,.19,.97) both;
 }
+
+/* RETRO ARCADE VIBES */
+.retro-font {
+  font-family: 'Press Start 2P', monospace;
+  text-transform: uppercase;
+}
+
+.retro-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.9);
+  border: 4px solid #fff;
+  color: #fff;
+  padding: 3rem;
+  text-align: center;
+  z-index: 20;
+  box-shadow: 10px 10px 0px rgba(255, 0, 0, 0.5), -10px -10px 0px rgba(0, 255, 255, 0.5);
+  image-rendering: pixelated;
+  min-width: 400px;
+}
+
+.retro-title {
+  color: #ffde00;
+  text-shadow: 4px 4px 0px #ff0000;
+  font-size: 32px;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.retro-text {
+  font-size: 10px;
+  line-height: 2;
+  margin-bottom: 2rem;
+  color: #00ffff;
+  text-shadow: 2px 2px 0px #0000ff;
+}
+
+.retro-input {
+  background: black;
+  border: 4px solid #fff;
+  color: #00ff00;
+  font-size: 24px;
+  width: 140px;
+  text-align: center;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  outline: none;
+}
+.retro-input:focus {
+  border-color: #ffde00;
+  box-shadow: 0 0 10px #ffde00;
+}
+
+.retro-button {
+  background: #ff0000;
+  border: 4px solid #fff;
+  color: #fff;
+  padding: 1rem 2rem;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px #000;
+  margin-bottom: 2rem;
+}
+.retro-button[disabled] {
+  background: #555;
+  color: #aaa;
+  cursor: not-allowed;
+  border-color: #888;
+  box-shadow: none;
+}
+.retro-button:not([disabled]):hover {
+  background: #fff;
+  color: #ff0000;
+  border-color: #ff0000;
+}
+
+.retro-leaderboard {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border: 2px solid #ff00ff;
+}
+.retro-leaderboard h2 {
+  font-size: 16px;
+  color: #ff00ff;
+  border-bottom: 4px dashed #ff00ff;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 0 #000;
+}
+.retro-leaderboard-entry {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 14px;
+  color: #fff;
+  margin: 0.8rem 0;
+}
+
+.retro-gameover-title {
+  color: #ff0000;
+  font-size: 48px;
+  text-shadow: 5px 5px 0px #fff;
+  margin-bottom: 2rem;
+  animation: blink 1s infinite step-end;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
