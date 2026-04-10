@@ -1,12 +1,12 @@
 export function spawnFruit(id) {
   return {
     id,
-    x: Math.random() * window.innerWidth,
+    x: Math.random() * (window.innerWidth - 100) + 50,
     y: window.innerHeight + 50, // start below screen
     vx: (Math.random() - 0.5) * 10,
-    vy: -20 - Math.random() * 10, // speed upwards
-    radius: 40,
+    vy: -22 - Math.random() * 8, // speed upwards slightly faster
+    radius: 70 + Math.random() * 20, // Bigger radius
     sliced: false,
-    type: ["apple", "lemon", "orange"][Math.floor(Math.random() * 3)]
+    type: Math.random() > 0.85 ? 'bomb' : ["apple", "melon", "banana"][Math.floor(Math.random() * 3)]
   };
 }
