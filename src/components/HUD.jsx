@@ -1,20 +1,54 @@
 import React from 'react';
 
-export function HUD({ score, lives, timeLeft }) {
+export function HUD({ scoreP1, scoreP2, lives, timeLeft, playerMode }) {
   return (
-    <div className="retro-font" style={{
-      position: 'absolute',
-      top: '20px',
-      left: '20px',
-      color: '#fff',
-      fontSize: '24px',
-      textShadow: '4px 4px 0px rgba(0,0,0,1)',
-      pointerEvents: 'none',
-      zIndex: 10
-    }}>
-      <div>Score: {score}</div>
-      <div>Time: {Math.max(0, Math.ceil(timeLeft))}</div>
-      <div>Lives: {'❤️'.repeat(lives)}</div>
-    </div>
+    <>
+      {/* P1 Score - Top Left */}
+      <div className="retro-font" style={{
+        position: 'absolute',
+        top: '20px',
+        left: '20px',
+        color: '#00ffff',
+        fontSize: '24px',
+        textShadow: '4px 4px 0px rgba(0,0,0,1)',
+        pointerEvents: 'none',
+        zIndex: 10
+      }}>
+        <div>P1 SCORE: {scoreP1}</div>
+        {playerMode === '1P' && <div>LIVES: {'❤️'.repeat(lives)}</div>}
+      </div>
+
+      {/* Timer - Top Center */}
+      <div className="retro-font" style={{
+        position: 'absolute',
+        top: '20px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        color: '#fff',
+        fontSize: '32px',
+        textShadow: '4px 4px 0px rgba(0,0,0,1)',
+        pointerEvents: 'none',
+        zIndex: 10
+      }}>
+        TIME: {Math.max(0, Math.ceil(timeLeft))}
+      </div>
+
+      {/* P2 Score - Top Right */}
+      {playerMode === '2P' && (
+        <div className="retro-font" style={{
+          position: 'absolute',
+          top: '20px',
+          right: '20px',
+          color: '#ff00ff',
+          fontSize: '24px',
+          textShadow: '4px 4px 0px rgba(0,0,0,1)',
+          textAlign: 'right',
+          pointerEvents: 'none',
+          zIndex: 10
+        }}>
+          <div>P2 SCORE: {scoreP2}</div>
+        </div>
+      )}
+    </>
   );
 }

@@ -5,7 +5,10 @@ import { Fruit } from './Fruit';
 import { BladeTrail } from './BladeTrail';
 import { SliceBurst } from './SliceBurst';
 
-export function Scene3D({ fruits, bladePoints, particles }) {
+export function Scene3D({ fruits, bladePointsP1, bladePointsP2, particles, splatters }) {
+  const headPointP1 = bladePointsP1?.length > 0 ? bladePointsP1[bladePointsP1.length - 1] : null;
+  const headPointP2 = bladePointsP2?.length > 0 ? bladePointsP2[bladePointsP2.length - 1] : null;
+
   return (
     <Canvas
       style={{
@@ -29,14 +32,19 @@ export function Scene3D({ fruits, bladePoints, particles }) {
         far={1000}
       />
       
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[10, 10, 10]} intensity={1} />
+      <ambientLight intensity={1.5} />
+      <directionalLight position={[10, 10, 10]} intensity={2} />
+      
+      {/* Dynamic tracking point lights - Increased intensity to be seen over ambient */}
+      {headPointP1 && <pointLight position={[headPointP1.x, headPointP1.y, 100]} intensity={200000} color="#00ffff" />}
+      {headPointP2 && <pointLight position={[headPointP2.x, headPointP2.y, 100]} intensity={200000} color="#ff00ff" />}
 
       {fruits.map((f) => (
         <Fruit key={f.id} {...f} />
       ))}
 
-      <BladeTrail points={bladePoints} />
+      <BladeTrail points={bladePointsP1} color="#00ffff" />
+      <BladeTrail points={bladePointsP2} color="#ff00ff" />
       
       <SliceBurst particles={particles} />
     </Canvas>

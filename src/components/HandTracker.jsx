@@ -4,7 +4,8 @@ import { mapToScreen } from '../utils/mapLandmarks';
 
 export function HandTracker({ videoRef, onBladeMove }) {
   const landmarkerRef = useRef(null);
-  const trailingPoints = useRef([]);
+  const trailingP1 = useRef([]);
+  const trailingP2 = useRef([]);
 
   useEffect(() => {
     async function initModel() {
@@ -17,7 +18,7 @@ export function HandTracker({ videoRef, onBladeMove }) {
           delegate: "GPU"
         },
         runningMode: "VIDEO",
-        numHands: 1
+        numHands: 2
       });
       console.log("HandLandmarker loaded");
     }
@@ -36,22 +37,35 @@ export function HandTracker({ videoRef, onBladeMove }) {
           const detections = landmarkerRef.current.detectForVideo(video, startTimeMs);
           
           if (detections.landmarks && detections.landmarks.length > 0) {
-            // Index finger tip is landmark 8
-            const indexTip = detections.landmarks[0][8];
-            const screenPoint = mapToScreen(indexTip);
+            const screenPoints = detections.landmarks.map(hand => mapToScreen(hand[8]));
             
-            trailingPoints.current.push(screenPoint);
-            if (trailingPoints.current.length > 10) {
-              trailingPoints.current.shift();
+            // Sort conceptually: left-most point (lowest X) maps to P1, right-most to P2
+            screenPoints.sort((a,b) => a.x - b.x);
+
+            // Update P1 Trail
+            if (screenPoints.length > 0) {
+              trailingP1.current.push(screenPoints[0]);
+              if (trailingP1.current.length > 10) trailingP1.current.shift();
             }
-            onBladeMove([...trailingPoints.current]);
+            
+            // Update P2 Trail
+            if (screenPoints.length > 1) {
+              trailingP2.current.push(screenPoints[1]);
+              if (trailingP2.current.length > 10) trailingP2.current.shift();
+            } else if (trailingP2.current.length > 0) {
+              trailingP2.current.shift();
+            }
+
           } else {
-            // Gradually clear trail if no hand
-            if (trailingPoints.current.length > 0) {
-              trailingPoints.current.shift();
-              onBladeMove([...trailingPoints.current]);
-            }
+            // No hands detected, gradually clear both trails
+            if (trailingP1.current.length > 0) trailingP1.current.shift();
+            if (trailingP2.current.length > 0) trailingP2.current.shift();
           }
+
+          onBladeMove({ 
+            p1: [...trailingP1.current], 
+            p2: [...trailingP2.current] 
+          });
         }
       }
       animationFrameId = requestAnimationFrame(detectFrame);
