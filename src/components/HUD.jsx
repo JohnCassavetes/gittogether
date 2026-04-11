@@ -3,7 +3,7 @@ import React from 'react';
 export function HUD({ scoreP1, scoreP2, lives, timeLeft, playerMode }) {
   return (
     <>
-      {/* P1 Score - Top Left */}
+      {/* Player Score - Top Left */}
       <div className="retro-font" style={{
         position: 'absolute',
         top: '20px',
@@ -14,7 +14,7 @@ export function HUD({ scoreP1, scoreP2, lives, timeLeft, playerMode }) {
         pointerEvents: 'none',
         zIndex: 10
       }}>
-        <div>P1 SCORE: {scoreP1}</div>
+        <div>SCORE: {scoreP1}</div>
         {playerMode === '1P' && <div>LIVES: {'❤️'.repeat(lives)}</div>}
       </div>
 
@@ -32,23 +32,6 @@ export function HUD({ scoreP1, scoreP2, lives, timeLeft, playerMode }) {
       }}>
         TIME: {Math.max(0, Math.ceil(timeLeft))}
       </div>
-
-      {/* P2 Score - Top Right */}
-      {playerMode === '2P' && (
-        <div className="retro-font" style={{
-          position: 'absolute',
-          top: '20px',
-          right: '20px',
-          color: '#ff00ff',
-          fontSize: '24px',
-          textShadow: '4px 4px 0px rgba(0,0,0,1)',
-          textAlign: 'right',
-          pointerEvents: 'none',
-          zIndex: 10
-        }}>
-          <div>P2 SCORE: {scoreP2}</div>
-        </div>
-      )}
     </>
   );
 }
